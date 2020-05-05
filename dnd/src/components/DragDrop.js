@@ -1,8 +1,10 @@
 import React, {useState, useRef} from 'react';
 
-function DragDrop ({data}){
-    const {list, setList} = useState(data)
+function DragDrop ({data}) {
+    const [list, setList] = useState(data)
+    console.log(list)
     const [dragging, setDragging] = useState(false)
+    console.log(dragging)
 
     const dragItem = useRef();
     const dragNode = useRef()
@@ -24,9 +26,10 @@ function DragDrop ({data}){
             console.log('Target not the same.')
             setList(oldList => {
                 let newList = JSON.parse(JSON.stringify(oldList))
-                newList[params.grpI].items.splice(params.itemI, 0, newList[currentItem.grpI].items.splice(currentItem.itemI,1)[0])
+                newList[params.grpI].items.splice(params.itemI, 0, 
+                newList[currentItem.grpI].items.splice(currentItem.itemI, 1)[0])
                 dragItem.current = params
-                return newList
+                return newList;
             })
         }
     }
@@ -52,11 +55,11 @@ function DragDrop ({data}){
 
     return (
         <div className='drag-drop'>
-        {data.map((grp, grpI) => (
+        {list.map((grp, grpI) => (
           <div 
                 key={grp.title} 
                 className='dnd-group'
-                onDragEnter={dragging && !grp.items.length? handleDragEnter}
+                onDragEnter={dragging && !grp.items.length?(e) => handleDragEnter(e, {grpI, itemI: 0}):null}
                 >
               <div className="group-title">{grp.title}</div>
             {grp.items.map((item, itemI) => (
@@ -75,4 +78,4 @@ function DragDrop ({data}){
     )
 }
 
-export default DragDrop
+export default DragDrop;
