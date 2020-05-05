@@ -12,7 +12,7 @@ function App() {
     return (
         <div className='App'>
             <header className='App-header'>
-            <DragDrop data={data}/>
+            <DragDrop data={data} />
             </header>
         </div>
     )
